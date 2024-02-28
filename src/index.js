@@ -1,5 +1,6 @@
 import { setItem } from './utils/storage.js';
-import './index.css';
+import './index.scss';
+import "bootstrap"
 
 document.getElementById('btnSayHello').addEventListener('click', () => {
     alert('hello webpack');
