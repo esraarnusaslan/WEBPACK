@@ -5,5 +5,5 @@ import "bootstrap"
 document.getElementById('btnSayHello').addEventListener('click', () => {
     alert('hello webpack');
 
-    setItem('token', 'dfdsjhfjg34y732y4bjhsdb');
+    setItem('token', '456456sfjg34y732kjjy4bjhsdb');
 });
