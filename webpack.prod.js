@@ -1,16 +1,43 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common');
 
 const prod = {
     mode: 'production',
-    entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'main.[contenthash].js',
+        filename: './js/[name].[contenthash].js',
         clean: true,
+        assetModuleFilename: 'img/[hash][ext]',
     },
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+            },
+            {
+                test: /\.s(a|c)ss$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+            },
+            {
+                test: /\.(?:js|mjs|cjs)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env'],
+                    },
+                },
+            },
+        ],
+    },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: './css/[name].[contenthash].css',
+        }),
+    ],
 };
 
 module.exports = merge(common, prod);
